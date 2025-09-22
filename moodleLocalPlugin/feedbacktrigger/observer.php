@@ -5,30 +5,24 @@ class local_feedbacktrigger_observer {
     public static function feedback_submitted(\mod_feedback\event\response_submitted $event) {
         global $DB;
 
-        $completedid = $event->objectid;  // feedback_completed.id
+        $completedid = $event->objectid;
         $userid      = $event->userid;
         $courseid    = $event->courseid;
 
-        // Get completed feedback entry (this has the real feedback id!)
         $completed = $DB->get_record('feedback_completed', ['id' => $completedid]);
 
-        // Get course
         $course = $DB->get_record('course', ['id' => $courseid]);
 
-        // Get feedback activity from completed record
         $feedback = $DB->get_record('feedback', ['id' => $completed->feedback]);
 
-        // Get user
         $user = $DB->get_record('user', ['id' => $userid]);
 
-        // Get responses
         $sql = "SELECT i.id as itemid, i.name as question, i.typ as feedback_type, v.value as response
                   FROM {feedback_value} v
                   JOIN {feedback_item} i ON v.item = i.id
                  WHERE v.completed = :completedid";
         $responses = $DB->get_records_sql($sql, ['completedid' => $completedid]);
 
-        // Build payload
         $payload = [
             'feedback' => [
                 'id'   => $feedback->id,
@@ -49,8 +43,7 @@ class local_feedbacktrigger_observer {
             'responses'    => array_values($responses),
         ];
 
-        // Send to Next.js API
-        $url = "http://nextjs-app:3000/api/trigger";  // inside docker network
+        $url = "http://nextjs-app:3000/api/trigger";
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
@@ -61,9 +54,9 @@ class local_feedbacktrigger_observer {
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
         if (curl_errno($ch)) {
-            error_log("❌ CURL error: " . curl_error($ch));
+            error_log("API error: " . curl_error($ch));
         } else {
-            error_log("✅ Sent feedback submission to API, HTTP $httpcode, response: $response");
+            error_log("Sent feedback submission to API, HTTP $httpcode, response: $response");
         }
 
         curl_close($ch);
