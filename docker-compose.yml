@@ -1,0 +1,59 @@
+version: "3.8"
+
+services:
+  # -------------------------
+  # Postgres (Moodle DB)
+  # -------------------------
+  moodle-db:
+    image: postgres:15
+    container_name: moodle-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespass
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d  
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # -------------------------
+  # Moodle Application
+  # -------------------------
+  moodle-app:
+    image: bitnami/moodle:latest
+    container_name: moodle-app
+    environment:
+      MOODLE_DATABASE_TYPE: pgsql
+      MOODLE_DATABASE_HOST: moodle-db
+      MOODLE_DATABASE_PORT_NUMBER: 5432       
+      MOODLE_DATABASE_NAME: moodle
+      MOODLE_DATABASE_USER: moodle
+      MOODLE_DATABASE_PASSWORD: moodlepass
+    ports:
+      - "8080:8080"
+    depends_on:
+      moodle-db:
+        condition: service_healthy
+
+  # -------------------------
+  # Next.js App
+  # -------------------------
+  nextjs-app:
+    build: .
+    container_name: nextjs-app
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.local
+    depends_on:
+      moodle-db:
+        condition: service_healthy
+
+# -------------------------
+# Volumes
+# -------------------------
+volumes:
+  pgdata:

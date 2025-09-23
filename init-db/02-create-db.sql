@@ -1,0 +1,2 @@
+CREATE DATABASE moodle OWNER moodle;
+GRANT ALL PRIVILEGES ON DATABASE moodle TO moodle;
