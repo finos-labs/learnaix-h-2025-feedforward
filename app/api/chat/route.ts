@@ -16,12 +16,14 @@ export async function POST(req: Request) {
       SELECT 
         f.FEEDBACK_ID,
         f.COURSE_NAME,
+        f.COURSE_ID,
         f.USERNAME,
         f.TEXT_RESPONSE,
         f.THEMES,
         f.ACTIONABLE_SUGGESTION,
         f.SENTIMENT_LABEL,
         f.INSTRUCTOR_NAME,
+        f.INSTRUCTOR_ID,
         VECTOR_COSINE_SIMILARITY(f.RESPONSE_EMBEDDING, q.qvec) AS cosine_sim
       FROM FEEDBACK_DEMO.HACKATHON.MOODLE_FEEDBACK_AI_AUG f, query q
       ORDER BY cosine_sim DESC
@@ -40,7 +42,7 @@ export async function POST(req: Request) {
     const feedbackText = topFeedback
       .map(
         (row: any) =>
-          `${row.COURSE_NAME} | ${row.REVIEW_TEXT} | ${row.THEMES} | ${row.ACTIONABLE_SUGGESTION}`
+          `${row.COURSE_NAME} | ${row.COURSE_ID} | ${row.USERNAME} | ${row.TEXT_RESPONSE} | ${row.THEMES} | ${row.ACTIONABLE_SUGGESTION} | ${row.INSTRUCTOR_NAME} | ${row.INSTRUCTOR_ID}`
       )
       .join("\n");
 
