@@ -29,7 +29,7 @@ export default function Dashboard() {
         setLoading(false);
       })
       .catch((err) => {
-        console.error("Error fetching data:", err);
+        console.error("❌ Error fetching data:", err);
         setLoading(false);
       });
   }, []);
@@ -48,9 +48,9 @@ export default function Dashboard() {
     feedback.reduce((sum, f) => sum + (f.NUMERIC_RESPONSE || 0), 0) /
     totalReviews;
 
-  const avgSentiment =
-    feedback.reduce((sum, f) => sum + (f.SENTIMENT_SCORE_PERCENT || 0), 0) /
-    totalReviews;
+  const neutralCount = feedback.filter(
+    (f) => f.SENTIMENT_LABEL === "neutral",
+  ).length;
 
   const positiveCount = feedback.filter(
     (f) => f.SENTIMENT_LABEL === "positive",
@@ -59,6 +59,7 @@ export default function Dashboard() {
     (f) => f.SENTIMENT_LABEL === "negative",
   ).length;
 
+  const neutralPct = ((neutralCount / totalReviews) * 100).toFixed(1);
   const positivePct = ((positiveCount / totalReviews) * 100).toFixed(1);
   const negativePct = ((negativeCount / totalReviews) * 100).toFixed(1);
 
@@ -109,8 +110,11 @@ export default function Dashboard() {
           {/* KPI CARDS */}
           <div className="kpi-row">
             <KpiCard label="Total Reviews" value={totalReviews} />
-            <KpiCard label="Avg Rating" value={avgRating.toFixed(1)} />
-            <KpiCard label="Avg Sentiment %" value={avgSentiment.toFixed(1)} />
+            <KpiCard
+              label="Avg Rating"
+              value={`${avgRating.toFixed(1)} / 5`}
+            />
+            <KpiCard label="Neutral %" value={`${neutralPct}%`} />
             <KpiCard label="Positive %" value={`${positivePct}%`} />
             <KpiCard label="Negative %" value={`${negativePct}%`} />
             <KpiCard label="Net Promoter Score" value={overallNPS.toFixed(2)} />
@@ -119,10 +123,10 @@ export default function Dashboard() {
           {/* Chart */}
           <div className="chart-card">
             <h3>Sentiment % by Course</h3>
-            <ResponsiveContainer width="100%" height={550}>
+            <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={chartData}
-                margin={{ top: 20, right: 30, left: 20, bottom: 100 }} // extra bottom space
+                margin={{ top: 20, right: 30, left: 20, bottom: 60 }} // extra bottom space
                 onClick={(e) => {
                   if (e && e.activeLabel) {
                     const course = courses.find(
@@ -157,7 +161,15 @@ export default function Dashboard() {
 
           {/* Alert */}
           <div className="alert-flag">
-            🚩 Python Fundamentals has a negative sentiment score of 87%
+            🚩{" "}
+            <a
+              href="#"
+              onClick={(e) => e.preventDefault()} // prevent refresh
+              className="alert-link"
+            >
+              There are 50 reviews that have an urgency rating. Please click
+              here to review.
+            </a>
           </div>
         </div>
 
@@ -198,9 +210,9 @@ export default function Dashboard() {
 // KPI Card Component
 function KpiCard({ label, value }: { label: string; value: any }) {
   return (
-    <div className="bg-white p-4 rounded-xl shadow text-center">
-      <p className="text-sm text-gray-500">{label}</p>
-      <p className="text-xl font-bold">{value}</p>
+    <div className="bg-white p-3 rounded-lg shadow text-center">
+      <p className="text-xs text-gray-500">{label}</p>
+      <p className="text-lg font-bold">{value}</p>
     </div>
   );
 }
