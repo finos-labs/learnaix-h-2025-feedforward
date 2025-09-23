@@ -1,77 +1,52 @@
-# NatWest Hack4aCause Hackathon
+## 📄 Summary of Your Solution (under 150 words)
 
-![badge-labs](https://user-images.githubusercontent.com/327285/230928932-7c75f8ed-e57b-41db-9fb7-a292a13a1e58.svg)
+**What problem does your solution solve?**  
+Our solution tackles the challenge of unstructured and hard-to-analyze student feedback in Moodle. Instructors often lack actionable insights to improve teaching quality and course design in real time.  
 
-This repository was forked from [finos-labs/learnaix-h-2025](https://github.com/finos-labs/learnaix-h-2025).
+**How does it work?**  
+Feedback submitted in Moodle is captured via a custom plugin and passed to a Next.js API. The data is stored in Snowflake, where AI enrichment extracts sentiment, themes, and actionable suggestions. A Next.js dashboard then displays key metrics, while an AI chatbot powered by Snowflake Cortex Llama3 answers instructor queries based on enriched data.  
 
-Please refer to the [HACK4ACAUSE-TEMPLATE_README.md](./HACK4ACAUSE-TEMPLATE_README.md) for complete submission instructions and project documentation requirements.
+**What technologies did you use?**  
+- **Frontend:** Next.js, Recharts
+- **Backend/API:** Next.js serverless routes  
+- **Data & AI:** Snowflake (storage, enrichment, Cortex Llama3)  
+- **Integration:** Moodle plugin for feedback transfer  
 
 ---
 
-&nbsp;
+## 👥 Team Information
 
-Join us in a transformative AI hackathon focused on driving social impact in education and
-employability. Let’s work together to add the next game changer feature on to Snowflake
-LearnAIx platform, the AI-assisted, open-source learning system that you all will be helping
-build via this hackathon.
+| Field             | Details                                                                 |
+| ----------------- | ----------------------------------------------------------------------- |
+| **Team Name**     | FEEDFORWARD                                                             |
+| **Title**         | AI FEEDBACK REVIEW                                                      |
+| **Theme**         | Feedback as a Service                                                   |
+| **Contact Email** | vaibhav.tyagi@soprasteria.com                                           |
+| **Participants**  | Parisha Sethi, GURU PAVAN KALYAN Bandaru, VAN DER LINDE Angelique, SCOTT Daniel, Vaibhav Tyagi |
+| **GitHub Users**  | Daniel-Scott-13, parishasethi2024, vaibhavTyagiSopra                    |
 
-## Purpose:
+---
 
-With LearnAIx, our goal is to develop a scalable and accessible platform that can be
-leveraged by non-profits and academies alike to enhance learning experiences and open
-doors of opportunities to all learners.
+## 🎥 Submission Video
 
-Through your involvement in this hackathon, you will get the opportunity to socialise and
-network with like-minded enthusiasts who believe in open-source enablers for community
-benefit. You will use AI to improve learning solutions in the education sector.
+Provide a video walkthrough/demo of your project. You can upload it to YouTube, Google Drive, Loom, etc.  
 
-## Objective:
+- 📹 **Video Link**: [Paste link here]
 
-To create AI enabled Moodle plugins on existing LearnAIx alpha solution on Snowflake public
-platform. Shortlisted plugins will feature in the LearnAIx beta version that will be available to consume for free.
+---
 
-### Integrations & Tech stack
+## 🌐 Hosted App / Solution URL
 
-Plugins: Custom Moodle plugins using PHP, JavaScript, and REST APIs
-AI Integration: OpenAI APIs, LangChain, or Python-based microservices
-Hosting: Snowflake
+If your solution is deployed, share the live link here.  
 
-## How to get started with Plugin Development
+- 🌍 **Deployed URL**: [feedback-zeta-silk.vercel.app/dashboard](https://feedback-zeta-silk.vercel.app/dashboard)
 
-- Open the provided repo
-- Navigate to `assets` folder
-- ### Step 1: Choose your runtime
+---
 
-#### You can choose to run it in one of two ways:
+## 📜 License
 
-##### Option 1: Run Plugin on Snowflake
+Copyright © 2025 FINOS  
 
-- No need to install Moodle
-- you can run the plugin directly inside your Snowflake environment.
-- _Note:_ If you only want to use Snowflake, you can _skip the local setup steps_ below.
-
-##### Option 2: Run Plugin Locally with Moodle
-
-- Install Moodle on your local machine.
-- Follow the setup guide for your OS:
-  - [Windows Guide](./example/moodle-local-setup/setup-Windows.md)
-  - [macOS/iOS Guide](./example/moodle-local-setup/setup-MacOS.md)
-- Complete the setup steps as per the guide.
-
-- ### Step 2: Create Your Plugin
-  Once you’ve decided where to run the plugin (Snowflake or Moodle), the next step is to _create your plugin_.
-
-We have provided _different plugin templates_ inside the repository:
-
-- _With PHP support_ → See the [with php](./example/plugin-development-templates/with-php/)
-- _Without PHP support_ → See the [without php](./example/plugin-development-templates/without-php/)
-
-Explore these folders and pick the template that best fits your needs.
-
-## License
-
-&copy; Copyright 2025 FINOS
-
-Distributed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+Distributed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).  
 
 SPDX-License-Identifier: [Apache-2.0](https://spdx.org/licenses/Apache-2.0)
