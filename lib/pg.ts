@@ -11,7 +11,7 @@ export const pgClient = new Client({
 });
 
 pgClient.connect().then(() => {
-  console.log('✅ Connected to PostgreSQL');
+  console.log('Connected to PostgreSQL');
 }).catch(err => {
-  console.error('❌ PostgreSQL connection failed:', err.message);
+  console.error('PostgreSQL connection failed:', err.message);
 });

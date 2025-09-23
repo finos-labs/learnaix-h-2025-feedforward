@@ -1,10 +1,10 @@
-import { NextResponse } from 'next/server';
-import { runSnowflake } from '@/lib/snowflake';
+import { NextResponse } from "next/server";
+import { getFeedbackData } from "@/services/feedbackService";
 
 export async function GET() {
   try {
-    const rows = await runSnowflake('SELECT * FROM MOODLE_FEEDBACK_AI_AUG');
-    return NextResponse.json(rows);
+    const result = await getFeedbackData();
+    return NextResponse.json(result);
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 });
   }

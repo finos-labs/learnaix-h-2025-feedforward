@@ -22,10 +22,10 @@ function getConnection(): Promise<snowflake.Connection> {
 
     connection.connect(err => {
       if (err) {
-        console.error("❌ Snowflake connection failed:", err.message);
+        console.error("Snowflake connection failed:", err.message);
         reject(err);
       } else {
-        console.log("✅ Snowflake connected.");
+        console.log("Snowflake connected.");
         resolve(connection!);
       }
     });

@@ -1,33 +1,32 @@
-'use client';
+"use client";
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from "react";
 
 export default function Chatbot() {
   const [messages, setMessages] = useState<
-    { role: 'user' | 'assistant'; content: string }[]
+    { role: "user" | "assistant"; content: string }[]
   >([]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
-  // auto-scroll
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
 
   const sendMessage = async () => {
     if (!input.trim()) return;
 
-    const userMessage = { role: 'user' as const, content: input };
+    const userMessage = { role: "user" as const, content: input };
     setMessages((prev) => [...prev, userMessage]);
-    setInput('');
+    setInput("");
     setLoading(true);
 
     try {
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question: input }),
       });
 
@@ -35,16 +34,16 @@ export default function Chatbot() {
 
       // only bot answer (no sources)
       const assistantMessage = {
-        role: 'assistant' as const,
-        content: data.answer || '⚠️ No response',
+        role: "assistant" as const,
+        content: data.answer || "⚠️ No response",
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (err) {
-      console.error('❌ Chat error:', err);
+      console.error("Chat error:", err);
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: '❌ Failed to fetch response.' },
+        { role: "assistant", content: "Failed to fetch response." },
       ]);
     } finally {
       setLoading(false);
@@ -55,8 +54,8 @@ export default function Chatbot() {
     <>
       {/* Floating Button */}
       {!open && (
-        <button className="chat-toggle" onClick={() => setOpen(true)}>
-          💬
+        <button className="chat-pill" onClick={() => setOpen(true)}>
+          <span className="icon">🤖</span> Ask Feed Bot
         </button>
       )}
 
@@ -74,9 +73,9 @@ export default function Chatbot() {
             {messages.map((msg, idx) => (
               <div
                 key={idx}
-                className={`chat-bubble ${msg.role === 'user' ? 'user' : 'assistant'}`}
+                className={`chat-bubble ${msg.role === "user" ? "user" : "assistant"}`}
               >
-                <strong>{msg.role === 'user' ? 'You' : 'Bot'}:</strong>{' '}
+                <strong>{msg.role === "user" ? "You" : "Bot"}:</strong>{" "}
                 {msg.content}
               </div>
             ))}
@@ -93,7 +92,7 @@ export default function Chatbot() {
               placeholder="Ask about feedback..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && !loading && sendMessage()}
+              onKeyDown={(e) => e.key === "Enter" && !loading && sendMessage()}
               disabled={loading}
             />
             <button
