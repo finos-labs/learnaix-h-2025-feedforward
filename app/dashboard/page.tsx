@@ -66,6 +66,8 @@ export default function Dashboard() {
   const overallNPS =
     insights.reduce((sum, i) => sum + (i.NPS || 0), 0) / insights.length;
 
+  const urgencyFlagCount = feedback.filter(f => f.URGENCY_FLAG === true).length;
+
   const coursesGrouped = feedback.reduce((acc: any, f) => {
     const cname = f.COURSE_NAME;
     if (!acc[cname])
@@ -114,8 +116,8 @@ export default function Dashboard() {
               label="Avg Rating"
               value={`${avgRating.toFixed(1)} / 5`}
             />
-            <KpiCard label="Neutral %" value={`${neutralPct}%`} />
             <KpiCard label="Positive %" value={`${positivePct}%`} />
+            <KpiCard label="Neutral %" value={`${neutralPct}%`} />
             <KpiCard label="Negative %" value={`${negativePct}%`} />
             <KpiCard label="Net Promoter Score" value={overallNPS.toFixed(2)} />
           </div>
@@ -167,7 +169,7 @@ export default function Dashboard() {
               onClick={(e) => e.preventDefault()} // prevent refresh
               className="alert-link"
             >
-              There are 50 reviews that have an urgency rating. Please click
+              There are {urgencyFlagCount} reviews that have an urgency rating. Please click
               here to review.
             </a>
           </div>

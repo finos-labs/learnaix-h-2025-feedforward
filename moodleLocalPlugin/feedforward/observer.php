@@ -1,7 +1,7 @@
 <?php
 defined('MOODLE_INTERNAL') || die();
 
-class local_feedbacktrigger_observer {
+class local_feedforward_observer {
     public static function feedback_submitted(\mod_feedback\event\response_submitted $event) {
         global $DB;
 
@@ -65,7 +65,7 @@ class local_feedbacktrigger_observer {
         ];
 
         // Send to Next.js API
-        $url = "http://nextjs-app:3000/api/trigger";  // inside docker network
+        $url = "http://nextjs-app:3000/api/feedforward";  // inside docker network
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
@@ -76,9 +76,9 @@ class local_feedbacktrigger_observer {
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
         if (curl_errno($ch)) {
-            error_log("❌ CURL error: " . curl_error($ch));
+            error_log("CURL error: " . curl_error($ch));
         } else {
-            error_log("✅ Sent feedback submission to API, HTTP $httpcode, response: $response");
+            error_log("Sent feedback submission to API, HTTP $httpcode, response: $response");
         }
 
         curl_close($ch);
