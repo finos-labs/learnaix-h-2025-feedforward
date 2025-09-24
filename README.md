@@ -31,7 +31,7 @@ Feedback submitted in Moodle is captured via a custom plugin and passed to a Nex
 
 Provide a video walkthrough/demo of your project. You can upload it to YouTube, Google Drive, Loom, etc.  
 
-- 📹 **Video Link**: [Paste link here]
+- 📹 **Video Link**: [\[Paste link here\]](https://drive.google.com/file/d/16o6EydlAruo3hiaELfTdoj3O0AD5X3u4/view?usp=sharing)
 
 ---
 
@@ -42,6 +42,13 @@ If your solution is deployed, share the live link here.
 - 🌍 **Deployed URL**: [feedback-zeta-silk.vercel.app/dashboard](https://feedback-zeta-silk.vercel.app/dashboard)
 
 ---
+
+## Docker steps to run application
+
+1) Clone main branch of repository.
+2) Please make sure docker is running.
+3) Run "docker-compose up --build" and wait as moodle tables take some time to get inserted in postgres.
+4) Run "localhost:8080" for moodle & "localhost:3000/dashboard" for dashboard.
 
 ## 📜 License
 
