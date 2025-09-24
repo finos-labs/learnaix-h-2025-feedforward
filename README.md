@@ -49,8 +49,9 @@ If your solution is deployed, share the live link here.
 1) Clone main branch of repository.
 2) Please make sure docker is running.
 3) Run "docker-compose up --build" and wait as moodle tables take some time to get inserted in postgres.
-4) Run "localhost:8080" for moodle & "localhost:3000/dashboard" for dashboard.
-5) Please create .env.local at root. Refer env.defaults
+4) Install plugin from moodleLocalPlugin -> feedforward.zip in moodle's "Site Administration"
+5) Run "localhost:8080" for moodle & "localhost:3000/dashboard" for dashboard.
+6) Please create .env.local at root. Refer env.defaults
 
 ## 📜 License
 
