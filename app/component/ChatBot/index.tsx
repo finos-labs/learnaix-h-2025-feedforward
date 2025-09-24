@@ -52,14 +52,12 @@ export default function Chatbot() {
 
   return (
     <>
-      {/* Floating Button */}
       {!open && (
         <button className="chat-pill" onClick={() => setOpen(true)}>
           <span className="icon">🤖</span> Ask Feed Bot
         </button>
       )}
 
-      {/* Chat Window */}
       {open && (
         <div className="chat-window">
           <div className="chat-header">
