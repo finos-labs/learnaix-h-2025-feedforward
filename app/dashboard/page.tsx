@@ -63,8 +63,8 @@ export default function Dashboard() {
           <div className="kpi-row">
             <KpiCard label={DASHBOARD_LABELS.TOTAL_REVIEWS} value={totalReviews} />
             <KpiCard label={DASHBOARD_LABELS.AVG_RATING} value={`${avgRating.toFixed(1)} / 5`} />
-            <KpiCard label={DASHBOARD_LABELS.NEUTRAL} value={`${neutralPct}%`} />
             <KpiCard label={DASHBOARD_LABELS.POSITIVE} value={`${positivePct}%`} />
+            <KpiCard label={DASHBOARD_LABELS.NEUTRAL} value={`${neutralPct}%`} />
             <KpiCard label={DASHBOARD_LABELS.NEGATIVE} value={`${negativePct}%`} />
             <KpiCard label={DASHBOARD_LABELS.NPS} value={overallNPS.toFixed(2)} />
           </div>
