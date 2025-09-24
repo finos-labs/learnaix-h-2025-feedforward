@@ -31,7 +31,7 @@ Feedback submitted in Moodle is captured via a custom plugin and passed to a Nex
 
 Provide a video walkthrough/demo of your project. You can upload it to YouTube, Google Drive, Loom, etc.  
 
-- 📹 **Video Link**: [\[Paste link here\]](https://www.loom.com/share/c89419d6bdb3435abe0bb59227e75967?sid=9b690b2f-7f9a-4741-9a21-e8ae9792f477)
+- 📹 **Video Link**: https://www.loom.com/share/c89419d6bdb3435abe0bb59227e75967?sid=9b690b2f-7f9a-4741-9a21-e8ae9792f477
 
 
 ---
