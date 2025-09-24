@@ -18,6 +18,9 @@ MUST_CHANGE_PASSWORD = TRUE;
 --grant permissions
 GRANT ROLE FE_DEV_ROLE TO USER FE_DEV;
 
+GRANT USAGE ON DATABASE FEEDBACK_DEMO TO ROLE FE_DEV_ROLE;
+GRANT USAGE ON SCHEMA HACKATHON TO ROLE FE_DEV_ROLE;
+
 -- Allow table creation in the schema
 GRANT CREATE TABLE ON SCHEMA FEEDBACK_DEMO.HACKATHON TO ROLE FE_DEV_ROLE;
  
@@ -382,6 +385,7 @@ FROM (
 --creating stream and task with accountadmin as they have access to execute command and then granted access to accountadmin the key data tables for scheduled execution
 use role accountadmin;
 grant all privileges on table FEEDBACK_DEMO.HACKATHON.MOODLE_FEEDBACK_TRANSFORM to role accountadmin;
+grant all privileges on table FEEDBACK_DEMO.HACKATHON.MOODLE_FEEDBACK to role accountadmin;
 
 grant all privileges on table FEEDBACK_DEMO.HACKATHON.MOODLE_FEEDBACK_AI_AUG to role accountadmin;
 grant all privileges on table FEEDBACK_DEMO.HACKATHON.MOODLE_FEEDBACK_AI_AUG_COURSE to role accountadmin;
@@ -391,6 +395,9 @@ grant all privileges on table FEEDBACK_DEMO.HACKATHON.MOODLE_FEEDBACK_AI_ACT_INS
 grant all privileges on table FEEDBACK_DEMO.HACKATHON.MOODLE_FEEDBACK_AI_AUG_OVERALL to role accountadmin;
 
 grant all privileges on table FEEDBACK_DEMO.HACKATHON.MOODLE_FEEDBACK_AI_ACT_INS_OVERALL to role accountadmin;
+GRANT OWNERSHIP ON STREAM FEEDBACK_DEMO.HACKATHON.MOODLE_FEEDBACk
+TO ROLE accountadmin
+COPY CURRENT GRANTS;
 
 --streaming data script
 CREATE OR REPLACE STREAM FEEDBACK_DEMO.HACKATHON.MOODLE_FEEDBACK_STREAM
@@ -401,7 +408,7 @@ APPEND_ONLY = TRUE;
 -- =========================================
 CREATE OR REPLACE TASK FEEDBACK_DEMO.HACKATHON.TASK_FEEDBACK_TRANSFORM
 WAREHOUSE = COMPUTE_WH
-SCHEDULE = 'USING CRON * * * * *UTC'
+SCHEDULE = 'USING CRON * * * * * UTC'
 AS
 INSERT INTO FEEDBACK_DEMO.HACKATHON.MOODLE_FEEDBACK_TRANSFORM
 SELECT 
